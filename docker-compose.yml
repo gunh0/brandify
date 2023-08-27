@@ -1,0 +1,19 @@
+version: "3"
+services:
+    fastapi:
+        build:
+            context: ./fastapi
+            dockerfile: Dockerfile
+        container_name: sk-fastapi-srv
+        ports:
+            - "8080:8080"
+
+    mongodb:
+        build:
+            context: ./mongo
+            dockerfile: Dockerfile
+        container_name: sk-mongo
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./mongo/mongo-data:/data/db
