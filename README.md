@@ -1,4 +1,4 @@
-# SK AI
+# Prompter Day Seoul 2023
 
 <br/>
 
