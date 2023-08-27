@@ -1,4 +1,5 @@
 import {useRef, useCallback, useEffect} from 'react';
+import {clamp} from '../utils/math_util';
 
 const step = (x: number, y: number, v: number, d: number) => ({
   x: x + v * Math.cos(d),
@@ -30,11 +31,13 @@ export const useDragAndThrow = ({
   const displayElement = useCallback(
     (newX: number, newY: number) => {
       if (!elementRef.current) return;
-      elementRef.current.style.transform = `translate(${newX - elementWidth / 2}px, ${newY - elementHeight / 2}px)`;
+      const xx = clamp(newX - elementWidth / 2, 0, canvasWidth - elementWidth),
+        yy = clamp(newY - elementHeight / 2, 0, canvasHeight - elementHeight);
+      elementRef.current.style.transform = `translate(${xx}px, ${yy}px)`;
       x.current = newX;
       y.current = newY;
     },
-    [elementHeight, elementWidth],
+    [canvasHeight, canvasWidth, elementHeight, elementWidth],
   );
 
   const tick = useCallback(() => {
@@ -42,11 +45,11 @@ export const useDragAndThrow = ({
 
     velocity.current = velocity.current * (1 - friction.current);
     const loc = step(x.current, y.current, velocity.current, direction.current);
-    if (loc.x < 0 || loc.x + elementWidth > canvasWidth) {
+    if (loc.x < elementWidth / 2 || loc.x + elementWidth / 2 > canvasWidth) {
       direction.current = Math.PI - direction.current;
       velocity.current = velocityOnCollision;
     }
-    if (loc.y < 0 || loc.y + elementHeight > canvasHeight) {
+    if (loc.y < elementHeight / 2 || loc.y + elementHeight / 2 > canvasHeight) {
       direction.current = -direction.current;
       velocity.current = velocityOnCollision;
     }
