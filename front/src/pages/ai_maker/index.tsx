@@ -30,18 +30,19 @@ export const AiMakerPage = () => {
             <></>
           ))}
       </div>
-      <div className={buttonContainerStyle}>
-        {canGoToPrevStep && (
-          <button className={css(buttonStyle, {transform: 'rotate(180deg)'})} onClick={goToPrevStep}>
-            <Arrow />
-          </button>
-        )}
-        {canGoToNextStep && (
-          <button className={css(buttonStyle, {ml: 'auto'})} onClick={goToNextStep}>
-            <Arrow />
-          </button>
-        )}
-      </div>
+      {canGoToPrevStep && (
+        <button
+          className={css(buttonStyle, {transform: 'rotate(180deg)', bottom: '40px', left: '44px'})}
+          onClick={goToPrevStep}
+        >
+          <Arrow />
+        </button>
+      )}
+      {canGoToNextStep && (
+        <button className={css(buttonStyle, {ml: 'auto', bottom: '40px', right: '44px'})} onClick={goToNextStep}>
+          <Arrow />
+        </button>
+      )}
     </div>
   );
 };
@@ -56,17 +57,8 @@ const containerStyle = css({
   flexDir: 'column',
 });
 
-const buttonContainerStyle = css({
-  position: 'absolute',
-  bottom: '0',
-  width: '100%',
-  display: 'flex',
-  justifyContent: 'space-between',
-  p: '40px 44px',
-  zIndex: '15',
-});
-
 const buttonStyle: SystemStyleObject = {
+  position: 'absolute',
   width: '120px',
   height: '120px',
   borderRadius: '120px',
@@ -75,4 +67,5 @@ const buttonStyle: SystemStyleObject = {
   justifyContent: 'center',
   alignItems: 'center',
   cursor: 'pointer',
+  zIndex: 11,
 };
