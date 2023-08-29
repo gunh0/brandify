@@ -1,1 +1,80 @@
 @layer reset, base, tokens, recipes, utilities;
+
+@font-face {
+    font-family: 'BastardoGrotesk';
+    font-weight: 200;
+    src: url(../public/bastardo/BastardoGrotesk-Thin.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'BastardoGrotesk';
+    font-weight: 300;
+    src: url(../public/bastardo/BastardoGrotesk-Light.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'BastardoGrotesk';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../public/bastardo/BastardoGrotesk-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'BastardoGrotesk';
+    font-weight: 500;
+    src: url(../public/bastardo/BastardoGrotesk-Semibold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'BastardoGrotesk';
+    font-weight: 600;
+    src: url(../public/bastardo/BastardoGrotesk-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'BastardoGrotesk';
+    font-weight: 700;
+    src: url(../public/bastardo/BastardoGrotesk-Black.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'neue-montreal';
+    font-weight: 200;
+    src: url(../public/neue-montreal/PPNeueMontreal-Thin.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'neue-montreal';
+    font-weight: 400;
+    src: url(../public/neue-montreal/PPNeueMontreal-Book.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'neue-montreal';
+    font-style: normal;
+    font-weight: 500;
+    src: url(../public/neue-montreal/PPNeueMontreal-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'neue-montreal';
+    font-style: italic;
+    src: url(../public/neue-montreal/PPNeueMontreal-Italic.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'neue-montreal';
+    font-weight: 600;
+    font-style: italic;
+    src: url(../public/neue-montreal/PPNeueMontreal-SemiBolditalic.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'neue-montreal';
+    font-weight: 700;
+    src: url(../public/neue-montreal/PPNeueMontreal-Bold.otf) format('opentype');
+}
+
+html {
+    font-family: 'BastardoGrotesk', serif;
+}

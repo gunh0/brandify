@@ -36,6 +36,7 @@ export const PurposeKeywordPickPage = () => {
         }
         subtitle={'브랜드에 사용하려는 상황과 목적을 선택해줘'}
         backgroundText={'purpose'}
+        backgroundFontSize={287}
         onIntersectedArea={onIntersectedArea}
       />
     </>

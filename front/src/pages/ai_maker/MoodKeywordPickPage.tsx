@@ -36,6 +36,7 @@ export const MoodKeywordPickPage = () => {
         }
         subtitle="너가 좋아하는 분위기나 무드를 드래그 해줘"
         backgroundText="MOOD"
+        backgroundFontSize={358}
         onIntersectedArea={onIntersectedArea}
       />
     </>

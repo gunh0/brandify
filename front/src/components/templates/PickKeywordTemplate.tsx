@@ -8,9 +8,10 @@ type Props = {
   backgroundText: string;
   keywords: Keyword[];
   onIntersectedArea: (keyword: Keyword) => void;
+  backgroundFontSize: number;
 };
 
-export const PickKeywordTemplate = ({title, subtitle, backgroundText, keywords}: Props) => {
+export const PickKeywordTemplate = ({title, subtitle, backgroundText, keywords, backgroundFontSize}: Props) => {
   return (
     <div className={containerStyle}>
       <section className={titleSectionStyle}>
@@ -23,7 +24,9 @@ export const PickKeywordTemplate = ({title, subtitle, backgroundText, keywords}:
         ))}
       </div>
       <div className={uiContainerStyle}>
-        <span className={backgroundTextStyle}>{backgroundText}</span>
+        <span className={backgroundTextStyle} style={{fontSize: `${backgroundFontSize}px`}}>
+          {backgroundText}
+        </span>
         <div className={dragAreaContainerStyle}>
           <span className={dragTextStyle}>Drag In Here!</span>
           <br />
@@ -45,7 +48,6 @@ const keywordContainerStyle = css({flex: '1', position: 'relative'});
 const uiContainerStyle = css({position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'});
 
 const backgroundTextStyle = css({
-  fontSize: '358px',
   position: 'absolute',
   top: '50%',
   left: '50%',
