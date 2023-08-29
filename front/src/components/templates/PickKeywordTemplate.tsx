@@ -1,7 +1,7 @@
 import {ReactNode, useRef} from 'react';
 import {css} from '../../../styled-system/css';
 import {Keyword} from '../../types/Keyword';
-import {KeywordCard} from '../keyword/KeywordCard.tsx';
+import {KeywordCard, KeywordFontColor} from '../keyword/KeywordCard.tsx';
 import {isIntersect} from '../../utils/dom_util.ts';
 import {TitleSection} from '../common/TitleSection.tsx';
 import {Diamond} from '../keyword/Diamond.tsx';
@@ -16,6 +16,7 @@ type Props = {
   onIntersectedArea: (keyword: Keyword) => void;
   backgroundFontSize: number;
   onDragToArea: (keyword: Keyword) => void;
+  keywordFontColor?: KeywordFontColor;
 };
 
 export const PickKeywordTemplate = ({
@@ -25,6 +26,7 @@ export const PickKeywordTemplate = ({
   keywords,
   backgroundFontSize,
   onDragToArea,
+  keywordFontColor,
 }: Props) => {
   const dragConstraintRef = useRef<HTMLDivElement>(null);
   const dragAreaRef = useRef<HTMLDivElement>(null);
@@ -58,6 +60,7 @@ export const PickKeywordTemplate = ({
             key={keyword.name}
             keyword={keyword}
             dragConstraint={dragConstraintRef}
+            fontColor={keywordFontColor}
             onAnimationUpdate={(rect?: DOMRect) => onKeywordAnimationUpdated(keyword, rect)}
           />
         ))}

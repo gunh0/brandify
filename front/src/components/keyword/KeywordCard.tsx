@@ -8,12 +8,18 @@ type Props = {
   keyword: Keyword;
   dragConstraint: RefObject<HTMLDivElement>;
   onAnimationUpdate?: (rect?: DOMRect) => void;
+  fontColor?: KeywordFontColor;
 };
+
+export type KeywordFontColor = 'pink' | 'skyblue' | 'deeppink' | 'random';
 
 const shapes = ['diamond', 'rectangle', 'circle'];
 const getRandomShape = () => shapes[Math.floor((Math.random() * 100) % 3)];
 
-export const KeywordCard = ({keyword, dragConstraint, onAnimationUpdate}: Props) => {
+const colors: KeywordFontColor[] = ['pink', 'skyblue'];
+const getRandomColor = () => colors[Math.floor(Math.random() * 2)];
+
+export const KeywordCard = ({keyword, dragConstraint, onAnimationUpdate, fontColor = 'pink'}: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const shape = keyword.type === 'color' ? 'rectangle' : getRandomShape();
   return (
@@ -21,7 +27,9 @@ export const KeywordCard = ({keyword, dragConstraint, onAnimationUpdate}: Props)
       <motion.div
         drag
         ref={ref}
-        className={css(containerStyle)}
+        className={css(containerStyle, {
+          color: fontColor === 'random' ? getRandomColor() : fontColor,
+        })}
         dragConstraints={dragConstraint}
         onUpdate={() => onAnimationUpdate?.(ref.current?.getBoundingClientRect())}
         data-shape={shape}

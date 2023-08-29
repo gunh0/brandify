@@ -29,6 +29,7 @@ export const PurposeKeywordPickPage = () => {
         backgroundFontSize={287}
         onIntersectedArea={onIntersectedArea}
         onDragToArea={onIntersectedArea}
+        keywordFontColor={'skyblue'}
       />
     </>
   );

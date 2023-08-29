@@ -1,11 +1,11 @@
-import {useMemo, useState} from 'react';
+import {useState} from 'react';
 import {PickKeywordTemplate} from '../../components/templates/PickKeywordTemplate.tsx';
 import {Keyword} from '../../types/Keyword.ts';
 
+const keywords = [{name: 'test'}, {name: 'test2'}];
+
 export const ReferenceKeywordPickPage = () => {
   const [selected, setSelected] = useState<Keyword[]>([]);
-
-  const filtered = useMemo(() => [].filter(purpose => !selected.includes(purpose)), [selected]);
 
   const onIntersectedArea = (keyword: Keyword) => {
     setSelected([...selected, keyword]);
@@ -14,7 +14,7 @@ export const ReferenceKeywordPickPage = () => {
   return (
     <>
       <PickKeywordTemplate
-        keywords={filtered}
+        keywords={keywords}
         title={
           <>
             this is the keyword analyzed from
@@ -33,6 +33,7 @@ export const ReferenceKeywordPickPage = () => {
         backgroundFontSize={220}
         onIntersectedArea={onIntersectedArea}
         onDragToArea={onIntersectedArea}
+        keywordFontColor={'deeppink'}
       />
     </>
   );
