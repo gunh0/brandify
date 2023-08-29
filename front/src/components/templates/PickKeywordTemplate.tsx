@@ -4,6 +4,9 @@ import {Keyword} from '../../types/Keyword';
 import {KeywordCard} from '../keyword/KeywordCard.tsx';
 import {isIntersect} from '../../utils/dom_util.ts';
 import {TitleSection} from '../common/TitleSection.tsx';
+import {Diamond} from '../keyword/Diamond.tsx';
+import {Circle} from '../keyword/Circle.tsx';
+import {Rectangle} from '../keyword/Rectangle.tsx';
 
 type Props = {
   title: ReactNode;
@@ -58,6 +61,11 @@ export const PickKeywordTemplate = ({
             onAnimationUpdate={(rect?: DOMRect) => onKeywordAnimationUpdated(keyword, rect)}
           />
         ))}
+      </div>
+      <div className={css({position: 'fixed'})}>
+        <Diamond />
+        <Circle />
+        <Rectangle />
       </div>
     </div>
   );
