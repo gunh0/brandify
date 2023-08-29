@@ -3,10 +3,11 @@ import {css} from '../../../styled-system/css';
 import {Keyword} from '../../types/Keyword';
 import {KeywordCard} from '../keyword/KeywordCard.tsx';
 import {isIntersect} from '../../utils/dom_util.ts';
+import {TitleSection} from '../common/TitleSection.tsx';
 
 type Props = {
   title: ReactNode;
-  subtitle: string;
+  subtitle: ReactNode;
   backgroundText: string;
   keywords: Keyword[];
   onIntersectedArea: (keyword: Keyword) => void;
@@ -37,10 +38,7 @@ export const PickKeywordTemplate = ({
 
   return (
     <div className={containerStyle}>
-      <section className={titleSectionStyle}>
-        <h1 className={titleStyle}>{title}</h1>
-        <p className={subtitleStyle}>{subtitle}</p>
-      </section>
+      <TitleSection title={title} subtitle={subtitle} />
       <div className={uiContainerStyle}>
         <span className={backgroundTextStyle} style={{fontSize: `${backgroundFontSize}px`}}>
           {backgroundText}
@@ -66,10 +64,6 @@ export const PickKeywordTemplate = ({
 };
 
 const containerStyle = css({position: 'relative', width: '100%', height: '100%', display: 'flex', flexDir: 'column'});
-
-const titleSectionStyle = css({width: '100%', textAlign: 'center', mt: '70px'});
-
-const subtitleStyle = css({fontSize: '20px', userSelect: 'none'});
 
 const keywordContainerStyle = css({flex: '1', position: 'relative', zIndex: '10'});
 
@@ -107,11 +101,3 @@ const dragTextStyle = css({
 });
 
 const dragDescriptionStyle = css({fontSize: '20px', fontWeight: '400'});
-
-const titleStyle = css({
-  fontSize: '36px',
-  lineHeight: '120%',
-  textTransform: 'uppercase',
-  mb: '12px',
-  userSelect: 'none',
-});

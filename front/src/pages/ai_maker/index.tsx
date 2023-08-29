@@ -6,9 +6,14 @@ import {MoodKeywordPickPage} from './MoodKeywordPickPage.tsx';
 import {useStep} from '../../hooks/useStep.ts';
 import {PurposeKeywordPickPage} from './PurposeKeywordPickPage.tsx';
 import {Arrow} from '../../components/icon/Arrow.tsx';
+import {ColorKeywordPickPage} from './ColorKeywordPickPage.tsx';
+import {RelatedKeywordPickPage} from './RelatedKeywordPickPage.tsx';
+import {UploadReferenceImagePage} from './UploadReferenceImagePage.tsx';
+import {ReferenceKeywordPickPage} from './ReferenceKeywordPickPage.tsx';
+import {ResultPage} from './ResultPage.tsx';
 
 export const AiMakerPage = () => {
-  const [currentStep, {goToNextStep, goToPrevStep, canGoToNextStep, canGoToPrevStep}] = useStep(2);
+  const [currentStep, {goToNextStep, goToPrevStep, canGoToNextStep, canGoToPrevStep}] = useStep(7);
   return (
     <div className={containerStyle}>
       <Header />
@@ -16,6 +21,11 @@ export const AiMakerPage = () => {
         {match(currentStep)
           .with(1, () => <MoodKeywordPickPage />)
           .with(2, () => <PurposeKeywordPickPage />)
+          .with(3, () => <ColorKeywordPickPage />)
+          .with(4, () => <RelatedKeywordPickPage />)
+          .with(5, () => <UploadReferenceImagePage />)
+          .with(6, () => <ReferenceKeywordPickPage />)
+          .with(7, () => <ResultPage />)
           .otherwise(() => (
             <></>
           ))}
