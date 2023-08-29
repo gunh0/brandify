@@ -13,18 +13,8 @@ export const PurposeKeywordPickPage = () => {
     setSelected([...selected, keyword]);
   };
 
-  const onClickUnselect = (keyword: Keyword) => {
-    setSelected(selected.filter(x => x.name !== keyword.name));
-  };
-
   return (
     <>
-      {selected.map(keyword => (
-        <span key={keyword.name}>
-          {keyword.name}
-          <button onClick={() => onClickUnselect(keyword)}>X</button>
-        </span>
-      ))}
       <PickKeywordTemplate
         keywords={filteredPurposes}
         title={
@@ -38,6 +28,7 @@ export const PurposeKeywordPickPage = () => {
         backgroundText={'purpose'}
         backgroundFontSize={287}
         onIntersectedArea={onIntersectedArea}
+        onDragToArea={onIntersectedArea}
       />
     </>
   );

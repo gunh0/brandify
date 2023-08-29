@@ -19,7 +19,6 @@ export const AiMakerPage = () => {
           .otherwise(() => (
             <></>
           ))}
-        <MoodKeywordPickPage />
       </div>
       <div className={buttonContainerStyle}>
         {canGoToPrevStep && (
@@ -54,6 +53,7 @@ const buttonContainerStyle = css({
   display: 'flex',
   justifyContent: 'space-between',
   p: '40px 44px',
+  zIndex: '15',
 });
 
 const buttonStyle: SystemStyleObject = {

@@ -1,6 +1,8 @@
-import {ReactNode} from 'react';
+import {ReactNode, useRef} from 'react';
 import {css} from '../../../styled-system/css';
 import {Keyword} from '../../types/Keyword';
+import {KeywordCard} from '../keyword/KeywordCard.tsx';
+import {isIntersect} from '../../utils/dom_util.ts';
 
 type Props = {
   title: ReactNode;
@@ -9,29 +11,55 @@ type Props = {
   keywords: Keyword[];
   onIntersectedArea: (keyword: Keyword) => void;
   backgroundFontSize: number;
+  onDragToArea: (keyword: Keyword) => void;
 };
 
-export const PickKeywordTemplate = ({title, subtitle, backgroundText, keywords, backgroundFontSize}: Props) => {
+export const PickKeywordTemplate = ({
+  title,
+  subtitle,
+  backgroundText,
+  keywords,
+  backgroundFontSize,
+  onDragToArea,
+}: Props) => {
+  const dragConstraintRef = useRef<HTMLDivElement>(null);
+  const dragAreaRef = useRef<HTMLDivElement>(null);
+
+  // TODO: throttle & 50% 닿았을 시 호출하게 변경
+  const onKeywordAnimationUpdated = (keyword: Keyword, rect?: DOMRect) => {
+    if (!rect) return;
+    const areaRect = dragAreaRef.current?.getBoundingClientRect();
+    if (!areaRect) return;
+    if (isIntersect(rect, areaRect)) {
+      onDragToArea(keyword);
+    }
+  };
+
   return (
     <div className={containerStyle}>
       <section className={titleSectionStyle}>
         <h1 className={titleStyle}>{title}</h1>
         <p className={subtitleStyle}>{subtitle}</p>
       </section>
-      <div className={keywordContainerStyle}>
-        {keywords.map(keyword => (
-          <div>{keyword.name}</div>
-        ))}
-      </div>
       <div className={uiContainerStyle}>
         <span className={backgroundTextStyle} style={{fontSize: `${backgroundFontSize}px`}}>
           {backgroundText}
         </span>
-        <div className={dragAreaContainerStyle}>
+        <div className={dragAreaContainerStyle} ref={dragAreaRef}>
           <span className={dragTextStyle}>Drag In Here!</span>
           <br />
           <span className={dragDescriptionStyle}>여기로 끌어주세요!</span>
         </div>
+      </div>
+      <div className={keywordContainerStyle} ref={dragConstraintRef}>
+        {keywords.map(keyword => (
+          <KeywordCard
+            key={keyword.name}
+            keyword={keyword}
+            dragConstraint={dragConstraintRef}
+            onAnimationUpdate={(rect?: DOMRect) => onKeywordAnimationUpdated(keyword, rect)}
+          />
+        ))}
       </div>
     </div>
   );
@@ -43,7 +71,7 @@ const titleSectionStyle = css({width: '100%', textAlign: 'center', mt: '70px'});
 
 const subtitleStyle = css({fontSize: '20px', userSelect: 'none'});
 
-const keywordContainerStyle = css({flex: '1', position: 'relative'});
+const keywordContainerStyle = css({flex: '1', position: 'relative', zIndex: '10'});
 
 const uiContainerStyle = css({position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'});
 

@@ -13,32 +13,21 @@ export const MoodKeywordPickPage = () => {
     setSelected([...selected, keyword]);
   };
 
-  const onClickUnselect = (keyword: Keyword) => {
-    setSelected(selected.filter(x => x.name !== keyword.name));
-  };
-
   return (
-    <>
-      {selected.map(keyword => (
-        <span key={keyword.name}>
-          {keyword.name}
-          <button onClick={() => onClickUnselect(keyword)}>X</button>
-        </span>
-      ))}
-      <PickKeywordTemplate
-        keywords={filteredMoods}
-        title={
-          <>
-            DRAG THE ATMOSPHERE
-            <br />
-            OR MOOD YOU LIKE
-          </>
-        }
-        subtitle="너가 좋아하는 분위기나 무드를 드래그 해줘"
-        backgroundText="MOOD"
-        backgroundFontSize={358}
-        onIntersectedArea={onIntersectedArea}
-      />
-    </>
+    <PickKeywordTemplate
+      keywords={filteredMoods}
+      title={
+        <>
+          DRAG THE ATMOSPHERE
+          <br />
+          OR MOOD YOU LIKE
+        </>
+      }
+      subtitle="너가 좋아하는 분위기나 무드를 드래그 해줘"
+      backgroundText="MOOD"
+      backgroundFontSize={358}
+      onIntersectedArea={onIntersectedArea}
+      onDragToArea={onIntersectedArea}
+    />
   );
 };
