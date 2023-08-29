@@ -1,65 +1,87 @@
+import {ReactNode} from 'react';
 import {css} from '../../../styled-system/css';
-import {SystemStyleObject} from '../../../styled-system/types';
 import {Keyword} from '../../types/Keyword';
-import {clamp} from '../../utils/math_util';
-import {KeywordCardSize} from '../keyword/KeywordCard';
-import {ThrowableKeywordCard} from '../keyword/ThrowableKeywordCard';
 
 type Props = {
-  title: string;
+  title: ReactNode;
+  subtitle: string;
+  backgroundText: string;
   keywords: Keyword[];
+  onIntersectedArea: (keyword: Keyword) => void;
 };
 
-const getRandomPosition = () => {
-  const {innerWidth, innerHeight} = window;
-  return {
-    x: clamp((Math.random() * 0.4 + 0.25) * innerWidth, innerWidth * 0.25, innerWidth * 0.75 - KeywordCardSize),
-    y: clamp(Math.random() * innerHeight, 0, innerHeight - KeywordCardSize),
-  };
+export const PickKeywordTemplate = ({title, subtitle, backgroundText, keywords}: Props) => {
+  return (
+    <div className={containerStyle}>
+      <section className={titleSectionStyle}>
+        <h1 className={titleStyle}>{title}</h1>
+        <p className={subtitleStyle}>{subtitle}</p>
+      </section>
+      <div className={keywordContainerStyle}>
+        {keywords.map(keyword => (
+          <div>{keyword.name}</div>
+        ))}
+      </div>
+      <div className={uiContainerStyle}>
+        <span className={backgroundTextStyle}>{backgroundText}</span>
+        <div className={dragAreaContainerStyle}>
+          <span className={dragTextStyle}>Drag In Here!</span>
+          <br />
+          <span className={dragDescriptionStyle}>여기로 끌어주세요!</span>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export const PickKeywordTemplate = ({title, keywords}: Props) => (
-  <div className={containerStyle}>
-    <h1 className={titleStyle}>
-      <span className={titlePrefixStyle}>Q.</span>
-      <br />
-      {title}
-    </h1>
-    <div className={css(sideAreaStyle, {left: 0})}>
-      <span className={sideAreaTextStyle}>싫어요</span>
-    </div>
-    <div className={css(sideAreaStyle, {right: 0})}>
-      <span className={sideAreaTextStyle}>좋아요</span>
-    </div>
-    {keywords.map(keyword => (
-      <ThrowableKeywordCard key={keyword.name} keyword={keyword} initialPosition={getRandomPosition()} />
-    ))}
-  </div>
-);
+const containerStyle = css({position: 'relative', width: '100%', height: '100%', display: 'flex', flexDir: 'column'});
 
-const containerStyle = css({
-  position: 'relative',
-  width: '100vw',
-  height: '100vh',
+const titleSectionStyle = css({width: '100%', textAlign: 'center', mt: '70px'});
+
+const subtitleStyle = css({fontSize: '20px', userSelect: 'none'});
+
+const keywordContainerStyle = css({flex: '1', position: 'relative'});
+
+const uiContainerStyle = css({position: 'absolute', top: 0, left: 0, width: '100%', height: '100%'});
+
+const backgroundTextStyle = css({
+  fontSize: '358px',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%,-50%)',
+  userSelect: 'none',
+  textTransform: 'uppercase',
 });
+
+const dragAreaContainerStyle = css({
+  width: '366px',
+  height: '328px',
+  borderRadius: '100%',
+  bgColor: '#cfc',
+  color: 'black',
+  textAlign: 'center',
+  pt: '60px',
+  transform: 'rotate(270deg) translate(50%, 50%)',
+  position: 'absolute',
+  right: '0',
+  top: '50%',
+});
+
+const dragTextStyle = css({
+  fontSize: '40px',
+  fontWeight: '300',
+  textTransform: 'capitalize',
+  mb: '12px',
+  mt: '60px',
+});
+
+const dragDescriptionStyle = css({fontSize: '20px', fontWeight: '400'});
 
 const titleStyle = css({
-  textAlign: 'center',
-});
-
-const titlePrefixStyle = css({fontWeight: 'bold'});
-
-const sideAreaStyle: SystemStyleObject = {
-  position: 'absolute',
-  height: '100%',
-  width: '25vw',
-  top: '0',
+  fontSize: '36px',
+  lineHeight: '120%',
+  textTransform: 'uppercase',
+  mb: '12px',
   userSelect: 'none',
-  bgColor: 'lightgray',
-
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
-const sideAreaTextStyle = css({});
+});
