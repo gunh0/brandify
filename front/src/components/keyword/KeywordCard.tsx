@@ -15,7 +15,7 @@ const getRandomShape = () => shapes[Math.floor((Math.random() * 100) % 3)];
 
 export const KeywordCard = ({keyword, dragConstraint, onAnimationUpdate}: Props) => {
   const ref = useRef<HTMLDivElement>(null);
-  const shape = getRandomShape();
+  const shape = keyword.type === 'color' ? 'rectangle' : getRandomShape();
   return (
     <>
       <motion.div
@@ -25,11 +25,12 @@ export const KeywordCard = ({keyword, dragConstraint, onAnimationUpdate}: Props)
         dragConstraints={dragConstraint}
         onUpdate={() => onAnimationUpdate?.(ref.current?.getBoundingClientRect())}
         data-shape={shape}
+        style={{backgroundColor: keyword.name}}
         initial={{
           ...(shape === 'rectangle' && {rotate: Math.floor(Math.random() * 90) - 45}),
         }}
       >
-        {keyword.name}
+        {keyword.type !== 'color' && keyword.name}
       </motion.div>
     </>
   );
