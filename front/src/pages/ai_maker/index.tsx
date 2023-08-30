@@ -30,32 +30,44 @@ export const AiMakerPage = () => {
             <></>
           ))}
       </div>
-      {canGoToPrevStep && (
-        <button
-          className={css(buttonStyle, {transform: 'rotate(180deg)', bottom: '40px', left: '44px'})}
-          onClick={goToPrevStep}
-        >
-          <Arrow />
-        </button>
-      )}
-      {canGoToNextStep && (
-        <button
-          className={css(buttonStyle, {
-            ml: 'auto',
-            bottom: '40px',
-            right: '44px',
-            fontSize: '36px',
-            color: 'white',
-            width: 'auto',
-            height: 'auto',
-            p: '30px 30px 30px 44px',
-            gap: '12px',
-          })}
-          onClick={goToNextStep}
-        >
-          NEXT <Arrow />
-        </button>
-      )}
+      {match(currentStep)
+        .with(1, 2, 3, 4, 5, 6, () => (
+          <>
+            {canGoToPrevStep && (
+              <button
+                className={css(buttonStyle, {
+                  transform: 'rotate(180deg)',
+                  bottom: '40px',
+                  left: '44px',
+                })}
+                onClick={goToPrevStep}
+              >
+                <Arrow />
+              </button>
+            )}
+            {canGoToNextStep && (
+              <button
+                className={css(buttonStyle, {
+                  ml: 'auto',
+                  bottom: '40px',
+                  right: '44px',
+                  fontSize: '36px',
+                  color: 'white',
+                  width: 'auto',
+                  height: 'auto',
+                  p: '30px 30px 30px 44px',
+                  gap: '12px',
+                })}
+                onClick={goToNextStep}
+              >
+                NEXT <Arrow />
+              </button>
+            )}
+          </>
+        ))
+        .otherwise(() => (
+          <></>
+        ))}
     </div>
   );
 };

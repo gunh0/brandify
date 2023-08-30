@@ -23,6 +23,7 @@ export default defineConfig({
         deeppink: {value: '#FF94E7'},
         skyblue: {value: '#4F8BEC'},
         orange: {value: '#FF8F3E'},
+        gray: {value: '#77777C'},
       },
     },
   },
