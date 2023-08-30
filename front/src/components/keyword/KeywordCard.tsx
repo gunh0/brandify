@@ -11,13 +11,9 @@ type Props = {
   fontColor?: KeywordFontColor;
 };
 
-export type KeywordFontColor = 'pink' | 'skyblue' | 'deeppink' | 'random';
+export type KeywordFontColor = 'pink' | 'skyblue' | 'orange' | 'deeppink' | 'random';
 
-const shapes = ['diamond', 'rectangle', 'circle'];
-const getRandomShape = () => shapes[Math.floor((Math.random() * 100) % 3)];
-
-const colors: KeywordFontColor[] = ['pink', 'skyblue'];
-const getRandomColor = () => colors[Math.floor(Math.random() * 2)];
+const getRandomShape = () => 'rectangle'; //shapes[Math.floor((Math.random() * 100) % 3)];
 
 export const KeywordCard = ({keyword, dragConstraint, onAnimationUpdate, fontColor = 'pink'}: Props) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -28,7 +24,7 @@ export const KeywordCard = ({keyword, dragConstraint, onAnimationUpdate, fontCol
         drag
         ref={ref}
         className={css(containerStyle, {
-          color: fontColor === 'random' ? getRandomColor() : fontColor,
+          color: fontColor,
         })}
         dragConstraints={dragConstraint}
         onUpdate={() => onAnimationUpdate?.(ref.current?.getBoundingClientRect())}
@@ -38,7 +34,8 @@ export const KeywordCard = ({keyword, dragConstraint, onAnimationUpdate, fontCol
           ...(shape === 'rectangle' && {rotate: Math.floor(Math.random() * 90) - 45}),
         }}
       >
-        {keyword.type !== 'color' && keyword.name}
+        <span className={nameStyle}>{keyword.type !== 'color' && keyword.name}</span>
+        <span className={korStyle}>{keyword.type !== 'color' && keyword.kor}</span>
       </motion.div>
     </>
   );
@@ -60,16 +57,23 @@ const diamond: SystemStyleObject = {
   clipPath: 'url(#diamond)',
 };
 
+const nameStyle = css({
+  fontSize: '28px',
+});
+
+const korStyle = css({
+  color: 'white',
+  fontSize: '16px',
+});
+
 const containerStyle: SystemStyleObject = {
   bgColor: '#ffffff10',
   backdropFilter: 'blur(25px)',
-  width: '192px',
-  height: '192px',
-  color: '#f8bbed',
+  p: '44px 20px 32px 20px',
   display: 'flex',
+  flexDir: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  fontSize: '28px',
   textTransform: 'uppercase',
   '&[data-shape=diamond]': diamond,
   '&[data-shape=rectangle]': rectangle,

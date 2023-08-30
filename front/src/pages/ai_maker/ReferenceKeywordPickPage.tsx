@@ -33,7 +33,7 @@ export const ReferenceKeywordPickPage = () => {
         backgroundFontSize={220}
         onIntersectedArea={onIntersectedArea}
         onDragToArea={onIntersectedArea}
-        keywordFontColor={'deeppink'}
+        keywordFontColor={'orange'}
       />
     </>
   );

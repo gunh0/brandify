@@ -28,6 +28,7 @@ export const MoodKeywordPickPage = () => {
       backgroundFontSize={358}
       onIntersectedArea={onIntersectedArea}
       onDragToArea={onIntersectedArea}
+      keywordFontColor={'pink'}
     />
   );
 };

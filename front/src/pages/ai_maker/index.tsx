@@ -39,8 +39,21 @@ export const AiMakerPage = () => {
         </button>
       )}
       {canGoToNextStep && (
-        <button className={css(buttonStyle, {ml: 'auto', bottom: '40px', right: '44px'})} onClick={goToNextStep}>
-          <Arrow />
+        <button
+          className={css(buttonStyle, {
+            ml: 'auto',
+            bottom: '40px',
+            right: '44px',
+            fontSize: '36px',
+            color: 'white',
+            width: 'auto',
+            height: 'auto',
+            p: '30px 30px 30px 44px',
+            gap: '12px',
+          })}
+          onClick={goToNextStep}
+        >
+          NEXT <Arrow />
         </button>
       )}
     </div>

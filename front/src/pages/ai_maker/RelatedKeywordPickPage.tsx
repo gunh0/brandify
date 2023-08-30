@@ -27,7 +27,7 @@ export const RelatedKeywordPickPage = () => {
         backgroundFontSize={298}
         onIntersectedArea={onIntersectedArea}
         onDragToArea={onIntersectedArea}
-        keywordFontColor={'random'}
+        keywordFontColor={'orange'}
       />
     </>
   );
