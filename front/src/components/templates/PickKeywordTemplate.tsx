@@ -1,4 +1,4 @@
-import {ReactNode, useRef} from 'react';
+import {ReactNode, useLayoutEffect, useRef, useState} from 'react';
 import {css} from '../../../styled-system/css';
 import {Keyword} from '../../types/Keyword';
 import {KeywordCard, KeywordFontColor} from '../keyword/KeywordCard.tsx';
@@ -7,6 +7,8 @@ import {TitleSection} from '../common/TitleSection.tsx';
 import {Diamond} from '../keyword/Diamond.tsx';
 import {Circle} from '../keyword/Circle.tsx';
 import {Rectangle} from '../keyword/Rectangle.tsx';
+import {createRect, placeBubble, Rect} from '../../utils/random_util.ts';
+import {useWindowSize} from '../../hooks/useWindowSize.ts';
 
 type Props = {
   title: ReactNode;
@@ -28,6 +30,9 @@ export const PickKeywordTemplate = ({
   onDragToArea,
   keywordFontColor,
 }: Props) => {
+  const [, setUpdated] = useState(false);
+  const {width: vw, height: vh} = useWindowSize();
+
   const dragConstraintRef = useRef<HTMLDivElement>(null);
   const dragAreaRef = useRef<HTMLDivElement>(null);
 
@@ -40,6 +45,19 @@ export const PickKeywordTemplate = ({
       onDragToArea(keyword);
     }
   };
+
+  useLayoutEffect(() => {
+    if (!vw || !vh) return;
+    console.log(vw, vh);
+    const rects: Rect[] = [];
+    keywords.forEach(keyword => {
+      const rect = createRect();
+      rects.push(rect);
+      placeBubble(rects, rect, 50, vw - 200, vh - 130);
+      keyword.rect = rect;
+    });
+    setUpdated(prev => !prev);
+  }, [vw, vh, keywords]);
 
   return (
     <div className={containerStyle}>
@@ -55,15 +73,19 @@ export const PickKeywordTemplate = ({
         </div>
       </div>
       <div className={keywordContainerStyle} ref={dragConstraintRef}>
-        {keywords.map(keyword => (
-          <KeywordCard
-            key={keyword.name}
-            keyword={keyword}
-            dragConstraint={dragConstraintRef}
-            fontColor={keywordFontColor}
-            onAnimationUpdate={(rect?: DOMRect) => onKeywordAnimationUpdated(keyword, rect)}
-          />
-        ))}
+        {keywords.map(
+          (keyword, idx) =>
+            keyword.rect && (
+              <KeywordCard
+                key={keyword.name + idx}
+                keyword={keyword}
+                dragConstraint={dragConstraintRef}
+                fontColor={keywordFontColor}
+                initialPosition={keyword.rect}
+                onAnimationUpdate={(rect?: DOMRect) => onKeywordAnimationUpdated(keyword, rect)}
+              />
+            ),
+        )}
       </div>
       <div className={css({position: 'fixed'})}>
         <Diamond />
