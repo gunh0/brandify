@@ -42,14 +42,14 @@ export const ResultPage = () => {
         <>
           <div className={imageContainerStyle}>
             {report.images.map((src, idx) => (
-              <div key={idx} className={imageWrapperStyle}>
-                <img className={imageStyle} src={src} alt={'result'} onClick={() => setSelectedImage(idx)} />
+              <button key={idx} className={imageWrapperStyle} onClick={() => setSelectedImage(idx)}>
+                <img className={imageStyle} src={src} alt={'result'} />
                 {idx === selectedImage && (
                   <div className={iconWrapperStyle}>
                     <GreenCheck />
                   </div>
                 )}
-              </div>
+              </button>
             ))}
           </div>
           <div className={buttonContainerStyle}>
@@ -76,6 +76,7 @@ const imageContainerStyle = css({display: 'flex', gap: '10px', justifyContent: '
 
 const imageWrapperStyle = css({
   position: 'relative',
+  cursor: 'pointer',
 });
 
 const iconWrapperStyle = css({
