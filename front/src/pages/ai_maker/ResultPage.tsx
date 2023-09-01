@@ -1,21 +1,22 @@
+import {useAtomValue} from 'jotai';
+import {useEffect} from 'react';
 import {TitleSection} from '../../components/common/TitleSection.tsx';
 import {css} from '../../../styled-system/css';
 import {useReportMutation} from '../../hooks/states/useReportMutation.ts';
+import {selectedAllKeywordsAtom} from '../../hooks/states/useSelectedStore.ts';
 
 export const ResultPage = () => {
+  const param = useAtomValue(selectedAllKeywordsAtom);
   const {
     reportResult: {data: report},
+    mutate,
   } = useReportMutation();
+  useEffect(() => {
+    mutate([param]);
+  }, []);
+
   return (
-    <div
-      className={css({
-        display: 'flex',
-        flexDir: 'column',
-        justifyContent: 'space-between',
-        height: '100%',
-        pb: '40px',
-      })}
-    >
+    <div className={containerStyle}>
       <TitleSection
         title={
           <>
@@ -28,20 +29,12 @@ export const ResultPage = () => {
       />
       {report && (
         <>
-          <div className={css({display: 'flex', gap: '10px', justifyContent: 'center'})}>
-            {report.images.map((_, idx) => (
-              <img
-                key={idx}
-                className={imageStyle}
-                src={
-                  'https://www.shinsegaegroupnewsroom.com/wp-content/uploads/2020/07/%EC%9D%B4%EB%A7%88%ED%8A%B813_%EB%B3%B8%EB%AC%B801.png'
-                }
-                alt={'result'}
-              />
+          <div className={imageContainerStyle}>
+            {report.images.map((src, idx) => (
+              <img key={idx} className={imageStyle} src={src} alt={'result'} />
             ))}
           </div>
-
-          <div className={css({display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px'})}>
+          <div className={buttonContainerStyle}>
             <button className={buttonStyle}>SAVE</button>
             <button className={buttonStyle}>SELL IT</button>
           </div>
@@ -51,11 +44,23 @@ export const ResultPage = () => {
   );
 };
 
+const containerStyle = css({
+  display: 'flex',
+  flexDir: 'column',
+  justifyContent: 'space-between',
+  height: '100%',
+  pb: '40px',
+});
+
+const imageContainerStyle = css({display: 'flex', gap: '10px', justifyContent: 'center'});
+
 const imageStyle = css({
   width: '416px',
   height: '416px',
   borderRadius: '10px',
 });
+
+const buttonContainerStyle = css({display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px'});
 
 const buttonStyle = css({
   width: '355px',

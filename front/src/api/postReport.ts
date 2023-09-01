@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Keyword} from '../types/Keyword';
 import {USE_DUMMY} from '../constants/env.ts';
 
 type ReportResponse = {
@@ -7,17 +6,20 @@ type ReportResponse = {
   description: string[];
   keywords: string[];
 };
+
+const image =
+  'https://www.shinsegaegroupnewsroom.com/wp-content/uploads/2020/07/%EC%9D%B4%EB%A7%88%ED%8A%B813_%EB%B3%B8%EB%AC%B801.png';
 export const postReport = async (param: {
-  moods: Keyword[];
-  purposes: Keyword[];
-  colors: Keyword[];
-  additional: Keyword[];
-  vision: Keyword[];
-  user: Keyword[];
+  moods: string[];
+  purposes: string[];
+  colors: string[];
+  additional: string[];
+  vision: string[];
+  user: string[];
 }): Promise<ReportResponse> => {
   if (USE_DUMMY) {
     console.log(param);
-    return {images: [], description: [], keywords: []};
+    return {images: [image, image, image, image], description: [], keywords: []};
   }
 
   try {

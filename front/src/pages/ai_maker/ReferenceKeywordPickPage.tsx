@@ -1,14 +1,21 @@
-import {useAtom} from 'jotai';
+import {useAtom, useAtomValue} from 'jotai';
+import {useEffect} from 'react';
 import {PickKeywordTemplate} from '../../components/templates/PickKeywordTemplate.tsx';
 import {Keyword} from '../../types/Keyword.ts';
-import {selectedReferenceAtom} from '../../hooks/states/useSelectedStore.ts';
+import {referenceImageAtom, selectedReferenceAtom} from '../../hooks/states/useSelectedStore.ts';
 import {useReferenceMutation} from '../../hooks/states/useReferenceMutation.ts';
 
 export const ReferenceKeywordPickPage = () => {
   const {
     referenceKeywords: {data: keywords = []},
+    mutate,
   } = useReferenceMutation();
+  const file = useAtomValue(referenceImageAtom);
   const [selected, setSelected] = useAtom(selectedReferenceAtom);
+
+  useEffect(() => {
+    file && mutate([file]);
+  }, []);
 
   const onIntersectedArea = (keyword: Keyword) => {
     setSelected([...selected, keyword]);

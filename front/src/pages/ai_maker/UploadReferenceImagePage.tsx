@@ -1,13 +1,18 @@
-import {ChangeEvent, useRef, useState} from 'react';
+import {ChangeEvent, useEffect, useMemo, useRef} from 'react';
+import {useAtom} from 'jotai';
 import {TitleSection} from '../../components/common/TitleSection.tsx';
 import {Share} from '../../components/icon/Share.tsx';
 import {css} from '../../../styled-system/css';
+import {useReferenceMutation} from '../../hooks/states/useReferenceMutation.ts';
+import {referenceImageAtom} from '../../hooks/states/useSelectedStore.ts';
 import {convertToDataUrl} from '../../utils/file_util.ts';
 
 export const UploadReferenceImagePage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [imageUrl, setImageUrl] = useState<string>();
-  const [filename, setFilename] = useState<string>();
+  const [file, setFile] = useAtom(referenceImageAtom);
+  const {mutate} = useReferenceMutation();
+
+  const thumbnailUrl = useMemo(() => (file ? convertToDataUrl(file) : undefined), [file]);
 
   const onClickUpload = () => {
     if (!inputRef.current) return;
@@ -17,23 +22,33 @@ export const UploadReferenceImagePage = () => {
   const onChangeFiles = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    setFilename(file.name);
-    setImageUrl(convertToDataUrl(file));
+    setFile(file);
   };
+
+  useEffect(() => {
+    return () => {
+      file && mutate([file]);
+    };
+  }, [file, mutate]);
 
   return (
     <div className={containerStyle}>
       <TitleSection title={'upload reference image or photo'} subtitle={'참고했으면 하는 사진이나 이미지가 있나요?'} />
       <div className={imageContainerStyle}>
-        {imageUrl && (
-          <img className={css({objectFit: 'cover'})} src={imageUrl} alt={'uploaded image'} width={360} height={360} />
+        {thumbnailUrl && (
+          <img
+            className={css({objectFit: 'cover'})}
+            src={thumbnailUrl}
+            alt={'uploaded image'}
+            width={360}
+            height={360}
+          />
         )}
       </div>
       <input type={'file'} onChange={onChangeFiles} ref={inputRef} hidden />
-      <button className={css(uploadButtonStyle, {color: filename ? 'white' : 'gray'})} onClick={onClickUpload}>
+      <button className={css(uploadButtonStyle, {color: file ? 'white' : 'gray'})} onClick={onClickUpload}>
         <Share />
-        {filename ?? 'Upload any image (optional)'}
+        {file?.name ?? 'Upload any image (optional)'}
       </button>
     </div>
   );
