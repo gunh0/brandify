@@ -123,6 +123,7 @@ const dragAreaContainerStyle = css({
   position: 'absolute',
   right: '0',
   top: '50%',
+  userSelect: 'none',
 });
 
 const dragTextStyle = css({
