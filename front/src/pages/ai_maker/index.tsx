@@ -1,6 +1,6 @@
 import {match} from 'ts-pattern';
 import {SystemStyleObject} from '@pandacss/dev';
-import {useCallback} from 'react';
+import {Suspense, useCallback} from 'react';
 import {useAtomValue} from 'jotai';
 import {css} from '../../../styled-system/css';
 import {Header} from '../../components/common/Header';
@@ -54,19 +54,21 @@ export const AiMakerPage = () => {
   return (
     <div className={containerStyle}>
       <Header />
-      <div className={css({flex: '1'})}>
-        {match(currentStep)
-          .with(PAGE.MOOD, () => <MoodKeywordPickPage />)
-          .with(PAGE.PURPOSE, () => <PurposeKeywordPickPage />)
-          .with(PAGE.COLOR, () => <ColorKeywordPickPage />)
-          .with(PAGE.RELATED, () => <RelatedKeywordPickPage />)
-          .with(PAGE.UPLOAD_REFERENCE, () => <UploadReferenceImagePage />)
-          .with(PAGE.REFERENCE_KEYWORD, () => <ReferenceKeywordPickPage />)
-          .with(PAGE.RESULT, () => <ResultPage />)
-          .otherwise(() => (
-            <></>
-          ))}
-      </div>
+      <Suspense fallback={'loading'}>
+        <div className={css({flex: '1'})}>
+          {match(currentStep)
+            .with(PAGE.MOOD, () => <MoodKeywordPickPage />)
+            .with(PAGE.PURPOSE, () => <PurposeKeywordPickPage />)
+            .with(PAGE.COLOR, () => <ColorKeywordPickPage />)
+            .with(PAGE.RELATED, () => <RelatedKeywordPickPage />)
+            .with(PAGE.UPLOAD_REFERENCE, () => <UploadReferenceImagePage />)
+            .with(PAGE.REFERENCE_KEYWORD, () => <ReferenceKeywordPickPage />)
+            .with(PAGE.RESULT, () => <ResultPage />)
+            .otherwise(() => (
+              <></>
+            ))}
+        </div>
+      </Suspense>
       {match(currentStep)
         .with(1, 2, 3, 4, 5, 6, () => (
           <>

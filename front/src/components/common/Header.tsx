@@ -4,7 +4,7 @@ import {css} from '../../../styled-system/css';
 export const Header = () => (
   <section className={css({position: 'relative', width: '100%', padding: '12px 24px'})}>
     <div className={logoStyle}>
-      <span>Brandify</span>
+      <a href={'/'}>Brandify</a>
     </div>
     <div className={css({position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)'})}>
       <button className={css(buttonStyle, {bgColor: 'white', color: 'background', marginRight: '12px'})}>
