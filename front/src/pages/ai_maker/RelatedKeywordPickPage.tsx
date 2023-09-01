@@ -26,6 +26,7 @@ export const RelatedKeywordPickPage = () => {
     <>
       <PickKeywordTemplate
         keywords={keywords}
+        selected={selected}
         title={
           <>
             drag the situations and purposes

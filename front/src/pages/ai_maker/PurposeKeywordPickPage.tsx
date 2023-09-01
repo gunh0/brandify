@@ -1,4 +1,3 @@
-import {useMemo} from 'react';
 import {useAtom} from 'jotai';
 import {PickKeywordTemplate} from '../../components/templates/PickKeywordTemplate.tsx';
 import {usePurposeKeywords} from '../../hooks/states/usePurposeKeywords.ts';
@@ -9,8 +8,6 @@ export const PurposeKeywordPickPage = () => {
   const {purposes} = usePurposeKeywords();
   const [selected, setSelected] = useAtom(selectedPurposeAtom);
 
-  const filteredPurposes = useMemo(() => purposes.filter(purpose => !selected.includes(purpose)), [purposes, selected]);
-
   const onIntersectedArea = (keyword: Keyword) => {
     setSelected([...selected, keyword]);
   };
@@ -18,7 +15,8 @@ export const PurposeKeywordPickPage = () => {
   return (
     <>
       <PickKeywordTemplate
-        keywords={filteredPurposes}
+        keywords={purposes}
+        selected={selected}
         title={
           <>
             drag the situations and purposes

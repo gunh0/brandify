@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, useRef, useState} from 'react';
+import {ReactNode, useEffect, useMemo, useRef, useState} from 'react';
 import {css} from '../../../styled-system/css';
 import {Keyword} from '../../types/Keyword';
 import {KeywordCard, KeywordFontColor} from '../keyword/KeywordCard.tsx';
@@ -7,14 +7,14 @@ import {TitleSection} from '../common/TitleSection.tsx';
 import {Diamond} from '../keyword/Diamond.tsx';
 import {Circle} from '../keyword/Circle.tsx';
 import {Rectangle} from '../keyword/Rectangle.tsx';
-import {createRect, placeBubble, Rect} from '../../utils/random_util.ts';
-import {useWindowSize} from '../../hooks/useWindowSize.ts';
+import {createRect, random, Rect} from '../../utils/random_util.ts';
 
 type Props = {
   title: ReactNode;
   subtitle: ReactNode;
   backgroundText: string;
   keywords?: Keyword[];
+  selected?: Keyword[];
   onIntersectedArea: (keyword: Keyword) => void;
   backgroundFontSize: number;
   onDragToArea: (keyword: Keyword) => void;
@@ -26,15 +26,19 @@ export const PickKeywordTemplate = ({
   subtitle,
   backgroundText,
   keywords = [],
+  selected = [],
   backgroundFontSize,
   onDragToArea,
   keywordFontColor,
 }: Props) => {
-  const [, setUpdated] = useState(false);
-  const {width: vw, height: vh} = useWindowSize();
-
+  const [constraintSize, setConstraintSize] = useState<DOMRect>();
   const dragConstraintRef = useRef<HTMLDivElement>(null);
   const dragAreaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!dragConstraintRef.current) return;
+    setConstraintSize(dragConstraintRef.current.getBoundingClientRect());
+  }, [dragConstraintRef.current]);
 
   // TODO: throttle & 50% 닿았을 시 호출하게 변경
   const onKeywordAnimationUpdated = (keyword: Keyword, rect?: DOMRect) => {
@@ -46,17 +50,17 @@ export const PickKeywordTemplate = ({
     }
   };
 
-  useEffect(() => {
-    if (!vw || !vh) return;
-    const rects: Rect[] = [];
-    keywords.forEach(keyword => {
-      const rect = createRect();
-      rects.push(rect);
-      placeBubble(rects, rect, 50, vw - 200, vh - 130);
-      keyword.rect = rect;
-    });
-    setUpdated(prev => !prev);
-  }, [vw, vh, keywords]);
+  const keywordsWithRect = useMemo(() => {
+    if (!constraintSize) return [];
+    const {width, height} = constraintSize;
+    const rects: Rect[] = Array.from({length: keywords.length}).map(createRect);
+    random(rects, width - 200, height);
+    return keywords.map((keyword, i) => ({keyword, rect: rects[i]}));
+  }, [constraintSize, keywords]);
+
+  const unselectedKeywords = useMemo(() => {
+    return keywordsWithRect.filter(({keyword}) => !selected.includes(keyword));
+  }, [keywordsWithRect, selected]);
 
   return (
     <div className={containerStyle}>
@@ -72,19 +76,16 @@ export const PickKeywordTemplate = ({
         </div>
       </div>
       <div className={keywordContainerStyle} ref={dragConstraintRef}>
-        {keywords.map(
-          (keyword, idx) =>
-            keyword.rect && (
-              <KeywordCard
-                key={keyword.name + idx}
-                keyword={keyword}
-                dragConstraint={dragConstraintRef}
-                fontColor={keywordFontColor}
-                initialPosition={keyword.rect}
-                onAnimationUpdate={(rect?: DOMRect) => onKeywordAnimationUpdated(keyword, rect)}
-              />
-            ),
-        )}
+        {unselectedKeywords.map(({keyword, rect}, idx) => (
+          <KeywordCard
+            key={keyword.name + idx}
+            keyword={keyword}
+            dragConstraint={dragConstraintRef}
+            fontColor={keywordFontColor}
+            initialPosition={rect}
+            onAnimationUpdate={(rect?: DOMRect) => onKeywordAnimationUpdated(keyword, rect)}
+          />
+        ))}
       </div>
       <div className={css({position: 'fixed'})}>
         <Diamond />

@@ -1,4 +1,3 @@
-import {useMemo} from 'react';
 import {useAtom} from 'jotai';
 import {PickKeywordTemplate} from '../../components/templates/PickKeywordTemplate.tsx';
 import {useMoods} from '../../hooks/states/useMoodKeywords.ts';
@@ -9,15 +8,14 @@ export const MoodKeywordPickPage = () => {
   const {moods} = useMoods();
   const [selected, setSelected] = useAtom(selectedMoodAtom);
 
-  const filteredMoods = useMemo(() => moods.filter(mood => !selected.includes(mood)), [moods, selected]);
-
   const onIntersectedArea = (keyword: Keyword) => {
     setSelected([...selected, keyword]);
   };
 
   return (
     <PickKeywordTemplate
-      keywords={filteredMoods}
+      keywords={moods}
+      selected={selected}
       title={
         <>
           DRAG THE ATMOSPHERE

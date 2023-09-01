@@ -25,6 +25,7 @@ export const ReferenceKeywordPickPage = () => {
     <>
       <PickKeywordTemplate
         keywords={keywords}
+        selected={selected}
         title={
           <>
             this is the keyword analyzed from

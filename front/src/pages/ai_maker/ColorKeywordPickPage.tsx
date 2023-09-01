@@ -16,6 +16,7 @@ export const ColorKeywordPickPage = () => {
     <>
       <PickKeywordTemplate
         keywords={colors}
+        selected={selected}
         title={
           <>
             choose the colors
