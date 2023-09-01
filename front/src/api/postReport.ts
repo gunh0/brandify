@@ -8,7 +8,7 @@ type ReportResponse = {
 };
 
 const image =
-  'https://www.shinsegaegroupnewsroom.com/wp-content/uploads/2020/07/%EC%9D%B4%EB%A7%88%ED%8A%B813_%EB%B3%B8%EB%AC%B801.png';
+  'https://images.unsplash.com/photo-1693140539040-aa567b436278?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80';
 export const postReport = async (param: {
   moods: string[];
   purposes: string[];

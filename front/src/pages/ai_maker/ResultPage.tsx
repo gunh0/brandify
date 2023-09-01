@@ -1,19 +1,30 @@
 import {useAtomValue} from 'jotai';
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {TitleSection} from '../../components/common/TitleSection.tsx';
 import {css} from '../../../styled-system/css';
 import {useReportMutation} from '../../hooks/states/useReportMutation.ts';
 import {selectedAllKeywordsAtom} from '../../hooks/states/useSelectedStore.ts';
+import {downloadWithImageSrc} from '../../utils/file_util.ts';
+import {GreenCheck} from '../../components/icon/GreenCheck.tsx';
 
 export const ResultPage = () => {
+  const [selectedImage, setSelectedImage] = useState<number | undefined>(undefined);
+
   const param = useAtomValue(selectedAllKeywordsAtom);
   const {
     reportResult: {data: report},
     mutate,
   } = useReportMutation();
+
   useEffect(() => {
     mutate([param]);
   }, []);
+
+  const onClickDownload = async () => {
+    if (selectedImage) {
+      downloadWithImageSrc(report?.images[selectedImage] ?? '');
+    }
+  };
 
   return (
     <div className={containerStyle}>
@@ -31,11 +42,20 @@ export const ResultPage = () => {
         <>
           <div className={imageContainerStyle}>
             {report.images.map((src, idx) => (
-              <img key={idx} className={imageStyle} src={src} alt={'result'} />
+              <div key={idx} className={imageWrapperStyle}>
+                <img className={imageStyle} src={src} alt={'result'} onClick={() => setSelectedImage(idx)} />
+                {idx === selectedImage && (
+                  <div className={iconWrapperStyle}>
+                    <GreenCheck />
+                  </div>
+                )}
+              </div>
             ))}
           </div>
           <div className={buttonContainerStyle}>
-            <button className={buttonStyle}>SAVE</button>
+            <button className={buttonStyle} onClick={onClickDownload} disabled={!selectedImage}>
+              SAVE
+            </button>
             <button className={buttonStyle}>SELL IT</button>
           </div>
         </>
@@ -54,10 +74,21 @@ const containerStyle = css({
 
 const imageContainerStyle = css({display: 'flex', gap: '10px', justifyContent: 'center'});
 
+const imageWrapperStyle = css({
+  position: 'relative',
+});
+
+const iconWrapperStyle = css({
+  position: 'absolute',
+  top: '12px',
+  right: '12px',
+});
+
 const imageStyle = css({
   width: '416px',
   height: '416px',
   borderRadius: '10px',
+  objectFit: 'cover',
 });
 
 const buttonContainerStyle = css({display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px'});
