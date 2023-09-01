@@ -1,10 +1,12 @@
-import {useState} from 'react';
+import {useAtom} from 'jotai';
 import {PickKeywordTemplate} from '../../components/templates/PickKeywordTemplate.tsx';
 import {Keyword} from '../../types/Keyword.ts';
+import {selectedColorAtom} from '../../hooks/states/useSelectedStore.ts';
+import {useColors} from '../../hooks/states/useColorKeywords.ts';
 
-const colorKeywords = ['pink', 'lightgray', 'green'].map(x => ({name: x, type: 'color'}) satisfies Keyword);
 export const ColorKeywordPickPage = () => {
-  const [selected, setSelected] = useState<Keyword[]>([]);
+  const {colors} = useColors();
+  const [selected, setSelected] = useAtom(selectedColorAtom);
 
   const onIntersectedArea = (keyword: Keyword) => {
     setSelected([...selected, keyword]);
@@ -13,7 +15,7 @@ export const ColorKeywordPickPage = () => {
   return (
     <>
       <PickKeywordTemplate
-        keywords={colorKeywords}
+        keywords={colors}
         title={
           <>
             choose the colors

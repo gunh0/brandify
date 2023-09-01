@@ -1,11 +1,13 @@
-import {useMemo, useState} from 'react';
+import {useMemo} from 'react';
+import {useAtom} from 'jotai';
 import {PickKeywordTemplate} from '../../components/templates/PickKeywordTemplate.tsx';
 import {usePurposeKeywords} from '../../hooks/states/usePurposeKeywords.ts';
 import {Keyword} from '../../types/Keyword.ts';
+import {selectedPurposeAtom} from '../../hooks/states/useSelectedStore.ts';
 
 export const PurposeKeywordPickPage = () => {
   const {purposes} = usePurposeKeywords();
-  const [selected, setSelected] = useState<Keyword[]>([]);
+  const [selected, setSelected] = useAtom(selectedPurposeAtom);
 
   const filteredPurposes = useMemo(() => purposes.filter(purpose => !selected.includes(purpose)), [purposes, selected]);
 

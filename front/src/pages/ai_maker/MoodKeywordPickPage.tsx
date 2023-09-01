@@ -1,11 +1,13 @@
-import {useMemo, useState} from 'react';
+import {useMemo} from 'react';
+import {useAtom} from 'jotai';
 import {PickKeywordTemplate} from '../../components/templates/PickKeywordTemplate.tsx';
 import {useMoods} from '../../hooks/states/useMoodKeywords.ts';
 import {Keyword} from '../../types/Keyword.ts';
+import {selectedMoodAtom} from '../../hooks/states/useSelectedStore.ts';
 
 export const MoodKeywordPickPage = () => {
   const {moods} = useMoods();
-  const [selected, setSelected] = useState<Keyword[]>([]);
+  const [selected, setSelected] = useAtom(selectedMoodAtom);
 
   const filteredMoods = useMemo(() => moods.filter(mood => !selected.includes(mood)), [moods, selected]);
 

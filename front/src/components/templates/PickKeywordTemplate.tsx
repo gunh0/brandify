@@ -1,4 +1,4 @@
-import {ReactNode, useLayoutEffect, useRef, useState} from 'react';
+import {ReactNode, useEffect, useRef, useState} from 'react';
 import {css} from '../../../styled-system/css';
 import {Keyword} from '../../types/Keyword';
 import {KeywordCard, KeywordFontColor} from '../keyword/KeywordCard.tsx';
@@ -14,7 +14,7 @@ type Props = {
   title: ReactNode;
   subtitle: ReactNode;
   backgroundText: string;
-  keywords: Keyword[];
+  keywords?: Keyword[];
   onIntersectedArea: (keyword: Keyword) => void;
   backgroundFontSize: number;
   onDragToArea: (keyword: Keyword) => void;
@@ -25,7 +25,7 @@ export const PickKeywordTemplate = ({
   title,
   subtitle,
   backgroundText,
-  keywords,
+  keywords = [],
   backgroundFontSize,
   onDragToArea,
   keywordFontColor,
@@ -46,9 +46,8 @@ export const PickKeywordTemplate = ({
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!vw || !vh) return;
-    console.log(vw, vh);
     const rects: Rect[] = [];
     keywords.forEach(keyword => {
       const rect = createRect();

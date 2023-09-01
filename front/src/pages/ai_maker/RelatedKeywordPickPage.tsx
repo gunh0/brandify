@@ -1,11 +1,14 @@
-import {useState} from 'react';
+import {useAtom} from 'jotai';
 import {PickKeywordTemplate} from '../../components/templates/PickKeywordTemplate.tsx';
 import {Keyword} from '../../types/Keyword.ts';
-
-const keywords = [{name: 'test'}, {name: 'test2'}];
+import {selectedAdditionalAtom} from '../../hooks/states/useSelectedStore.ts';
+import {useAdditionalMutation} from '../../hooks/states/useAdditionalMutation.ts';
 
 export const RelatedKeywordPickPage = () => {
-  const [selected, setSelected] = useState<Keyword[]>([]);
+  const {
+    additionalKeywords: {data: keywords = []},
+  } = useAdditionalMutation();
+  const [selected, setSelected] = useAtom(selectedAdditionalAtom);
 
   const onIntersectedArea = (keyword: Keyword) => {
     setSelected([...selected, keyword]);
