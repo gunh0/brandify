@@ -76,9 +76,9 @@ export const PickKeywordTemplate = ({
         </div>
       </div>
       <div className={keywordContainerStyle} ref={dragConstraintRef}>
-        {unselectedKeywords.map(({keyword, rect}, idx) => (
+        {unselectedKeywords.map(({keyword, rect}) => (
           <KeywordCard
-            key={keyword.name + idx}
+            key={keyword.name}
             keyword={keyword}
             dragConstraint={dragConstraintRef}
             fontColor={keywordFontColor}
