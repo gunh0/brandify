@@ -87,10 +87,9 @@ const iconWrapperStyle = css({
 });
 
 const imageStyle = css({
-  width: '416px',
-  height: '416px',
   borderRadius: '10px',
   objectFit: 'cover',
+  aspectRatio: '1',
 });
 
 const buttonContainerStyle = css({display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px'});
