@@ -105,51 +105,51 @@ export const dummyTextKeywords: Keyword[] = [
 
 export const dummyColorKeywordList: Keyword[] = [
   {
-    name: 'Red',
+    name: '#ff553e',
     type: 'color',
   },
   {
-    name: 'Blue',
+    name: '#5088ec',
     type: 'color',
   },
   {
-    name: 'Green',
+    name: '#5CEA5A',
     type: 'color',
   },
   {
-    name: 'Yellow',
+    name: '#FF8F3E',
     type: 'color',
   },
   {
-    name: 'Orange',
+    name: '#FFF73E',
     type: 'color',
   },
   {
-    name: 'Purple',
+    name: '#9E3EFF',
     type: 'color',
   },
   {
-    name: 'Pink',
+    name: '#FF94E7',
     type: 'color',
   },
   {
-    name: 'Brown',
+    name: '#A6634B',
     type: 'color',
   },
   {
-    name: 'Gray',
+    name: '#A8A7A7',
     type: 'color',
   },
   {
-    name: 'Black',
+    name: '#403B39',
     type: 'color',
   },
   {
-    name: 'White',
+    name: '#FFF',
     type: 'color',
   },
   {
-    name: 'Navy',
+    name: '#353E92',
     type: 'color',
   },
 ];
