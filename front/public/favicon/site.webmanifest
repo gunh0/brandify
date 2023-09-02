@@ -1,0 +1,14 @@
+{
+    "name": "Brandify",
+    "short_name": "Brandify",
+    "icons": [
+        {
+            "src": "/brandify/android-chrome-72x72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#171925",
+    "display": "standalone"
+}
