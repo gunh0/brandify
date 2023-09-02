@@ -13,7 +13,7 @@ import {RelatedKeywordPickPage} from './RelatedKeywordPickPage.tsx';
 import {UploadReferenceImagePage} from './UploadReferenceImagePage.tsx';
 import {ReferenceKeywordPickPage} from './ReferenceKeywordPickPage.tsx';
 import {ResultPage} from './ResultPage.tsx';
-import {referenceImageAtom} from '../../hooks/states/useSelectedStore.ts';
+import {referenceImageAtom, selectedAllKeywordsAtom} from '../../hooks/states/useSelectedStore.ts';
 
 enum PAGE {
   MOOD = 1,
@@ -29,6 +29,7 @@ export const AiMakerPage = () => {
   const [currentStep, {canGoToNextStep, canGoToPrevStep, setStep}] = useStep(PAGE.RESULT);
 
   const file = useAtomValue(referenceImageAtom);
+  const {moods, purposes, colors, vision, additional} = useAtomValue(selectedAllKeywordsAtom);
 
   const checkStep = useCallback(
     (now: number, next: number) => {
@@ -43,6 +44,15 @@ export const AiMakerPage = () => {
     [file],
   );
 
+  const checkCanGoNext =
+    canGoToNextStep &&
+    !(
+      (currentStep === PAGE.MOOD && moods.length === 0) ||
+      (currentStep === PAGE.PURPOSE && purposes.length === 0) ||
+      (currentStep === PAGE.COLOR && colors.length === 0) ||
+      (currentStep === PAGE.REFERENCE_KEYWORD && vision.length === 0) ||
+      (currentStep === PAGE.RELATED && additional.length === 0)
+    );
   const onClickNext = () => {
     setStep(checkStep(currentStep, currentStep + 1));
   };
@@ -72,21 +82,23 @@ export const AiMakerPage = () => {
       {match(currentStep)
         .with(1, 2, 3, 4, 5, 6, () => (
           <>
-            {canGoToPrevStep && (
-              <button className={prevButtonStyle} onClick={onClickPrev}>
-                <Arrow />
+            {currentStep !== 1 && (
+              <button className={prevButtonStyle} onClick={onClickPrev} disabled={!canGoToPrevStep}>
+                <Arrow disabled={!canGoToPrevStep} />
               </button>
             )}
-            {canGoToNextStep && (
-              <button className={nextButtonStyle} onClick={onClickNext}>
-                NEXT <Arrow />
-              </button>
-            )}
+            <button className={nextButtonStyle} onClick={onClickNext} disabled={!checkCanGoNext}>
+              NEXT <Arrow disabled={!checkCanGoNext} />
+            </button>
           </>
         ))
         .otherwise(() => (
           <></>
         ))}
+      <div className={css({visibility: 'none', position: 'fixed'})}>
+        <span className={css({color: 'skyblue'})}> </span>
+        <span className={css({color: 'orange'})}> </span>
+      </div>
     </div>
   );
 };
@@ -112,6 +124,7 @@ const buttonStyle: SystemStyleObject = {
   alignItems: 'center',
   cursor: 'pointer',
   zIndex: 11,
+  userSelect: 'none',
 };
 
 const prevButtonStyle = css(buttonStyle, {
@@ -130,4 +143,12 @@ const nextButtonStyle = css(buttonStyle, {
   height: 'auto',
   p: '30px 30px 30px 44px',
   gap: '12px',
+  ['&:disabled']: {
+    cursor: 'default',
+    borderColor: 'gray',
+    color: 'gray',
+    '& svg': {
+      fill: 'gray',
+    },
+  },
 });

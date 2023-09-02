@@ -6,13 +6,14 @@ import {useReportMutation} from '../../hooks/states/useReportMutation.ts';
 import {selectedAllKeywordsAtom} from '../../hooks/states/useSelectedStore.ts';
 import {downloadWithImageSrc} from '../../utils/file_util.ts';
 import {GreenCheck} from '../../components/icon/GreenCheck.tsx';
+import {LoadingView} from '../../components/common/LoadingView.tsx';
 
 export const ResultPage = () => {
   const [selectedImage, setSelectedImage] = useState<number | undefined>(undefined);
 
   const param = useAtomValue(selectedAllKeywordsAtom);
   const {
-    reportResult: {data: report},
+    reportResult: {data: report, isLoading = true},
     mutate,
   } = useReportMutation();
 
@@ -26,7 +27,9 @@ export const ResultPage = () => {
     }
   };
 
-  return (
+  return isLoading || !report ? (
+    <LoadingView />
+  ) : (
     <div className={containerStyle}>
       <TitleSection
         title={
@@ -77,6 +80,7 @@ const imageContainerStyle = css({display: 'flex', gap: '10px', justifyContent: '
 const imageWrapperStyle = css({
   position: 'relative',
   cursor: 'pointer',
+  userSelect: 'none',
 });
 
 const iconWrapperStyle = css({
@@ -86,10 +90,9 @@ const iconWrapperStyle = css({
 });
 
 const imageStyle = css({
-  width: '416px',
-  height: '416px',
   borderRadius: '10px',
   objectFit: 'cover',
+  aspectRatio: '1',
 });
 
 const buttonContainerStyle = css({display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '24px'});
@@ -103,4 +106,5 @@ const buttonStyle = css({
   fontSize: '36px',
   color: 'white',
   cursor: 'pointer',
+  userSelect: 'none',
 });

@@ -103,53 +103,104 @@ export const dummyTextKeywords: Keyword[] = [
   },
 ];
 
+export const purposeKeywordList: Keyword[] = [
+  {
+    name: 'Event',
+    kor: '이벤트',
+  },
+  {
+    name: 'Personal Branding',
+    kor: '퍼스널 브랜딩',
+  },
+  {
+    name: 'Infographic',
+    kor: '인포그래픽',
+  },
+  {
+    name: 'Profile',
+    kor: '프로필',
+  },
+  {
+    name: 'SNS Contents',
+    kor: 'SNS 컨텐츠',
+  },
+  {
+    name: 'Youtube Creator',
+    kor: '유튜브 크리에이터',
+  },
+  {
+    name: 'Promotion Banner',
+    kor: '프로모션 배너',
+  },
+  {
+    name: 'Website Contents',
+    kor: '웹사이트 컨텐츠',
+  },
+  {
+    name: 'Presentation',
+    kor: 'PPT',
+  },
+  {
+    name: '2 Dimension',
+    kor: '2D 그래픽',
+  },
+  {
+    name: '3 Dimension',
+    kor: '3D 그래픽',
+  },
+  {
+    name: 'character',
+    kor: '캐릭터',
+  },
+];
+
 export const dummyColorKeywordList: Keyword[] = [
   {
-    name: 'Red',
+    name: '#ff553e',
     type: 'color',
   },
   {
-    name: 'Blue',
+    name: '#5088ec',
     type: 'color',
   },
   {
-    name: 'Green',
+    name: '#5CEA5A',
     type: 'color',
   },
   {
-    name: 'Yellow',
+    name: '#FF8F3E',
     type: 'color',
   },
   {
-    name: 'Orange',
+    name: '#FFF73E',
     type: 'color',
   },
   {
-    name: 'Purple',
+    name: '#9E3EFF',
     type: 'color',
   },
   {
-    name: 'Pink',
+    name: '#FF94E7',
     type: 'color',
   },
   {
-    name: 'Brown',
+    name: '#A6634B',
     type: 'color',
   },
   {
-    name: 'Gray',
+    name: '#A8A7A7',
     type: 'color',
   },
   {
-    name: 'Black',
+    name: '#403B39',
     type: 'color',
   },
   {
-    name: 'White',
+    name: '#FFF',
     type: 'color',
   },
   {
-    name: 'Navy',
+    name: '#353E92',
     type: 'color',
   },
 ];

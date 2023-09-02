@@ -1,11 +1,14 @@
 import {SystemStyleObject} from '@pandacss/dev';
 import {css} from '../../../styled-system/css';
+import {Logo} from '../icon/Logo.tsx';
+import {LogoTypo} from '../icon/LogoTypo.tsx';
 
 export const Header = () => (
-  <section className={css({position: 'relative', width: '100%', padding: '12px 24px'})}>
-    <div className={logoStyle}>
-      <a href={'/'}>Brandify</a>
-    </div>
+  <section className={css({position: 'relative', width: '100%', padding: '12px 24px', margin: '16px'})}>
+    <a href={'/'} className={logoStyle}>
+      <Logo />
+      <LogoTypo />
+    </a>
     <div className={css({position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)'})}>
       <button className={css(buttonStyle, {bgColor: 'white', color: 'background', marginRight: '12px'})}>
         AI MAKER
@@ -18,15 +21,9 @@ export const Header = () => (
 );
 
 const logoStyle = css({
-  fontFamily: 'neue-montreal',
-  bgColor: '#d9d9d9',
-  color: 'black',
-  width: '178px',
-  height: '43px',
-  fontSize: '44px',
+  gap: '8px',
   userSelect: 'none',
   display: 'flex',
-  justifyContent: 'center',
   alignItems: 'center',
 });
 
@@ -35,4 +32,5 @@ const buttonStyle = {
   fontSize: '16px',
   borderRadius: '120px',
   cursor: 'pointer',
+  userSelect: 'none',
 } as SystemStyleObject;
