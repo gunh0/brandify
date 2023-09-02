@@ -17,6 +17,9 @@ export const Header = () => (
       <button className={css(buttonStyle, {bgColor: 'background', color: 'white', cursor: 'default'})} disabled>
         SHOP
       </button>
+      <button className={css(buttonStyle, {bgColor: 'background', color: 'white', cursor: 'default'})} disabled>
+        COMMUNITY
+      </button>
     </div>
   </section>
 );
