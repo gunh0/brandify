@@ -56,7 +56,7 @@ export const ResultPage = () => {
             ))}
           </div>
           <div className={buttonContainerStyle}>
-            <button className={buttonStyle} onClick={onClickDownload} disabled={!selectedImage}>
+            <button className={buttonStyle} onClick={onClickDownload} disabled={selectedImage === undefined}>
               SAVE
             </button>
             <button className={buttonStyle} disabled={true}>
