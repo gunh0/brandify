@@ -37,7 +37,7 @@ export const UploadReferenceImagePage = () => {
       <div className={imageContainerStyle}>
         {thumbnailUrl && (
           <img
-            className={css({objectFit: 'cover'})}
+            className={css({objectFit: 'cover', maxHeight: '360px'})}
             src={thumbnailUrl}
             alt={'uploaded image'}
             width={360}

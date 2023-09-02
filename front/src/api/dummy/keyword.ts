@@ -103,6 +103,57 @@ export const dummyTextKeywords: Keyword[] = [
   },
 ];
 
+export const purposeKeywordList: Keyword[] = [
+  {
+    name: 'Event',
+    kor: '이벤트',
+  },
+  {
+    name: 'Personal Branding',
+    kor: '퍼스널 브랜딩',
+  },
+  {
+    name: 'Infographic',
+    kor: '인포그래픽',
+  },
+  {
+    name: 'Profile',
+    kor: '프로필',
+  },
+  {
+    name: 'SNS Contents',
+    kor: 'SNS 컨텐츠',
+  },
+  {
+    name: 'Youtube Creator',
+    kor: '유튜브 크리에이터',
+  },
+  {
+    name: 'Promotion Banner',
+    kor: '프로모션 배너',
+  },
+  {
+    name: 'Website Contents',
+    kor: '웹사이트 컨텐츠',
+  },
+  {
+    name: 'Presentation',
+    kor: 'PPT',
+  },
+  {
+    name: '2 Dimension',
+    kor: '2D 그래픽',
+  },
+  {
+    name: '3 Dimension',
+    kor: '3D 그래픽',
+  },
+  {
+    name: 'character',
+    kor: '캐릭터',
+  },
+];
+
 export const dummyColorKeywordList: Keyword[] = [
   {
     name: '#ff553e',

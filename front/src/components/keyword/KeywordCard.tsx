@@ -93,6 +93,7 @@ const containerStyle: SystemStyleObject = {
   alignItems: 'center',
   textTransform: 'uppercase',
   position: 'absolute',
+  textAlign: 'center',
   '&[data-shape=diamond]': diamond,
   '&[data-shape=rectangle]': rectangle,
   '&[data-shape=circle]': circle,

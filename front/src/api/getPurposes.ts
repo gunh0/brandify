@@ -1,11 +1,11 @@
 import axios from 'axios';
 import {Keyword} from '../types/Keyword';
 import {USE_DUMMY} from '../constants/env.ts';
-import {dummyTextKeywords} from './dummy/keyword.ts';
+import {purposeKeywordList} from './dummy/keyword.ts';
 
 export const getPurposes = async (): Promise<Keyword[]> => {
   if (USE_DUMMY) {
-    return dummyTextKeywords;
+    return purposeKeywordList;
   }
 
   try {
