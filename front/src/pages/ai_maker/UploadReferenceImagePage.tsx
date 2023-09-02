@@ -59,7 +59,7 @@ const containerStyle = css({
   flexDir: 'column',
   justifyContent: 'space-between',
   height: '100%',
-  pb: '80px',
+  pb: '100px',
 });
 
 const imageContainerStyle = css({
@@ -83,5 +83,5 @@ const uploadButtonStyle = {
   border: '1px solid white',
   borderRadius: '37.5px',
   p: '0 37.5px',
-  m: 'auto',
+  m: '0 auto auto auto',
 };

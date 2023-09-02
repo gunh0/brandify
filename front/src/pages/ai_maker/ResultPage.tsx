@@ -28,7 +28,7 @@ export const ResultPage = () => {
   };
 
   return isLoading || !report ? (
-    <LoadingView />
+    <LoadingView text={'당신만의 브랜드 이미지를 생성하고 있어요'} />
   ) : (
     <div className={containerStyle}>
       <TitleSection
@@ -39,7 +39,7 @@ export const ResultPage = () => {
             for you!
           </>
         }
-        subtitle={'짠'}
+        subtitle={'4가지 이미지 중 하나를 선택해주세요'}
       />
       {report && (
         <>
@@ -59,7 +59,9 @@ export const ResultPage = () => {
             <button className={buttonStyle} onClick={onClickDownload} disabled={!selectedImage}>
               SAVE
             </button>
-            <button className={buttonStyle}>SELL IT</button>
+            <button className={buttonStyle} disabled={true}>
+              SELL IT
+            </button>
           </div>
         </>
       )}
@@ -75,7 +77,7 @@ const containerStyle = css({
   pb: '40px',
 });
 
-const imageContainerStyle = css({display: 'flex', gap: '10px', justifyContent: 'center'});
+const imageContainerStyle = css({display: 'flex', gap: '10px', justifyContent: 'center', p: '0 40px'});
 
 const imageWrapperStyle = css({
   position: 'relative',
@@ -107,4 +109,12 @@ const buttonStyle = css({
   color: 'white',
   cursor: 'pointer',
   userSelect: 'none',
+  ['&:disabled']: {
+    cursor: 'default',
+    borderColor: 'gray',
+    color: 'gray',
+    '& svg': {
+      fill: 'gray',
+    },
+  },
 });
