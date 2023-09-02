@@ -2,12 +2,12 @@ import {ReactNode, useEffect, useMemo, useRef, useState} from 'react';
 import {css} from '../../../styled-system/css';
 import {Keyword} from '../../types/Keyword';
 import {KeywordCard, KeywordFontColor} from '../keyword/KeywordCard.tsx';
-import {isIntersect} from '../../utils/dom_util.ts';
 import {TitleSection} from '../common/TitleSection.tsx';
 import {Diamond} from '../keyword/Diamond.tsx';
 import {Circle} from '../keyword/Circle.tsx';
 import {Rectangle} from '../keyword/Rectangle.tsx';
-import {createRect, random, Rect} from '../../utils/random_util.ts';
+import {random} from '../../utils/random_util.ts';
+import {createRect, isPercentageOverlap, Rect} from '../../utils/rect_util.ts';
 
 type Props = {
   title: ReactNode;
@@ -40,12 +40,11 @@ export const PickKeywordTemplate = ({
     setConstraintSize(dragConstraintRef.current.getBoundingClientRect());
   }, [dragConstraintRef.current]);
 
-  // TODO: throttle & 50% 닿았을 시 호출하게 변경
   const onKeywordAnimationUpdated = (keyword: Keyword, rect?: DOMRect) => {
     if (!rect) return;
     const areaRect = dragAreaRef.current?.getBoundingClientRect();
     if (!areaRect) return;
-    if (isIntersect(rect, areaRect)) {
+    if (isPercentageOverlap(rect, areaRect, 70)) {
       onDragToArea(keyword);
     }
   };

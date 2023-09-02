@@ -1,5 +1,6 @@
 import {motion} from 'framer-motion';
-import {memo, RefObject, useRef} from 'react';
+import {memo, RefObject, useMemo, useRef} from 'react';
+import throttle from 'lodash/throttle';
 import {Keyword} from '../../types/Keyword.ts';
 import {SystemStyleObject} from '../../../styled-system/types';
 import {css} from '../../../styled-system/css';
@@ -19,6 +20,11 @@ export const KeywordCard = memo(
   ({keyword, dragConstraint, onAnimationUpdate, fontColor = 'pink', initialPosition}: Props) => {
     const ref = useRef<HTMLDivElement>(null);
 
+    const throttledAnimationUpdate = useMemo(
+      () => throttle(() => onAnimationUpdate?.(ref.current?.getBoundingClientRect()), 200),
+      [onAnimationUpdate],
+    );
+
     return (
       <motion.div
         drag
@@ -27,12 +33,11 @@ export const KeywordCard = memo(
           color: fontColor,
         })}
         dragConstraints={dragConstraint}
-        onUpdate={() => onAnimationUpdate?.(ref.current?.getBoundingClientRect())}
+        onUpdate={throttledAnimationUpdate}
         data-shape={'rectangle'}
         style={{backgroundColor: keyword.name}}
         initial={{
           rotate: Math.floor(Math.random() * 90) - 45,
-          // transform: `translate(${initialPosition?.top}px, ${initialPosition?.left}px)`,
           top: initialPosition?.top,
           left: initialPosition?.left,
         }}
