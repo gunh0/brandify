@@ -10,7 +10,7 @@ export const RelatedKeywordPickPage = () => {
   const [selected, setSelected] = useAtom(selectedAdditionalAtom);
 
   const {
-    additionalKeywords: {data: keywords = [], isLoading = true},
+    additionalKeywords: {data: keywords, isLoading = true},
     mutate,
   } = useAdditionalMutation();
 
