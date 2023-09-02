@@ -4,12 +4,13 @@ import {PickKeywordTemplate} from '../../components/templates/PickKeywordTemplat
 import {Keyword} from '../../types/Keyword.ts';
 import {selectedAdditionalAtom, selectedKeywordsForAdditionalAtom} from '../../hooks/states/useSelectedStore.ts';
 import {useAdditionalMutation} from '../../hooks/states/useAdditionalMutation.ts';
+import {LoadingView} from '../../components/common/LoadingView.tsx';
 
 export const RelatedKeywordPickPage = () => {
   const [selected, setSelected] = useAtom(selectedAdditionalAtom);
 
   const {
-    additionalKeywords: {data: keywords = []},
+    additionalKeywords: {data: keywords = [], isLoading = true},
     mutate,
   } = useAdditionalMutation();
 
@@ -22,25 +23,25 @@ export const RelatedKeywordPickPage = () => {
     setSelected([...selected, keyword]);
   };
 
-  return (
-    <>
-      <PickKeywordTemplate
-        keywords={keywords}
-        selected={selected}
-        title={
-          <>
-            drag the situations and purposes
-            <br />
-            for using the brand
-          </>
-        }
-        subtitle={'선택한 키워드에서 연관된 카드들을 찾았어, 선택해줘'}
-        backgroundText={'related'}
-        backgroundFontSize={298}
-        onIntersectedArea={onIntersectedArea}
-        onDragToArea={onIntersectedArea}
-        keywordFontColor={'orange'}
-      />
-    </>
+  return isLoading ? (
+    <LoadingView />
+  ) : (
+    <PickKeywordTemplate
+      keywords={keywords}
+      selected={selected}
+      title={
+        <>
+          drag the situations and purposes
+          <br />
+          for using the brand
+        </>
+      }
+      subtitle={'선택한 키워드에서 연관된 카드들을 찾았어, 선택해줘'}
+      backgroundText={'related'}
+      backgroundFontSize={298}
+      onIntersectedArea={onIntersectedArea}
+      onDragToArea={onIntersectedArea}
+      keywordFontColor={'orange'}
+    />
   );
 };

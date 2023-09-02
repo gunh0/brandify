@@ -6,13 +6,14 @@ import {useReportMutation} from '../../hooks/states/useReportMutation.ts';
 import {selectedAllKeywordsAtom} from '../../hooks/states/useSelectedStore.ts';
 import {downloadWithImageSrc} from '../../utils/file_util.ts';
 import {GreenCheck} from '../../components/icon/GreenCheck.tsx';
+import {LoadingView} from '../../components/common/LoadingView.tsx';
 
 export const ResultPage = () => {
   const [selectedImage, setSelectedImage] = useState<number | undefined>(undefined);
 
   const param = useAtomValue(selectedAllKeywordsAtom);
   const {
-    reportResult: {data: report},
+    reportResult: {data: report, isLoading = true},
     mutate,
   } = useReportMutation();
 
@@ -26,7 +27,9 @@ export const ResultPage = () => {
     }
   };
 
-  return (
+  return isLoading ? (
+    <LoadingView />
+  ) : (
     <div className={containerStyle}>
       <TitleSection
         title={

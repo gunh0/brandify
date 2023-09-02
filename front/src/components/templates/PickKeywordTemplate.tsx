@@ -79,7 +79,7 @@ export const PickKeywordTemplate = ({
     }));
   }, [keywordsWithRect, selected]);
 
-  return (
+  return keywords.length > 0 ? (
     <div className={containerStyle}>
       <TitleSection title={title} subtitle={subtitle} />
       <div className={uiContainerStyle}>
@@ -116,6 +116,8 @@ export const PickKeywordTemplate = ({
         <Rectangle />
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 
