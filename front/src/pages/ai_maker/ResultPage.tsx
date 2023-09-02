@@ -27,7 +27,7 @@ export const ResultPage = () => {
     }
   };
 
-  return isLoading ? (
+  return isLoading || !report ? (
     <LoadingView />
   ) : (
     <div className={containerStyle}>

@@ -58,7 +58,7 @@ export const PickKeywordTemplate = ({
 
     setOverwrappedDragArea(isDragging && overlapPercentage > 0);
 
-    if (overlapPercentage > 0.6 && !isDragging) {
+    if (overlapPercentage > 0.3 && !isDragging) {
       onDragToArea(keyword);
       setOverwrappedDragArea(false);
     }
