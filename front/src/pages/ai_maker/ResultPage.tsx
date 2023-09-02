@@ -39,7 +39,7 @@ export const ResultPage = () => {
             for you!
           </>
         }
-        subtitle={'짠'}
+        subtitle={'4가지 이미지 중 하나를 선택해주세요'}
       />
       {report && (
         <>
@@ -77,7 +77,7 @@ const containerStyle = css({
   pb: '40px',
 });
 
-const imageContainerStyle = css({display: 'flex', gap: '10px', justifyContent: 'center'});
+const imageContainerStyle = css({display: 'flex', gap: '10px', justifyContent: 'center', p: '0 40px'});
 
 const imageWrapperStyle = css({
   position: 'relative',
