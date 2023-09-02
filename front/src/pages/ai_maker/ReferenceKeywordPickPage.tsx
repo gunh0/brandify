@@ -8,7 +8,7 @@ import {LoadingView} from '../../components/common/LoadingView.tsx';
 
 export const ReferenceKeywordPickPage = () => {
   const {
-    referenceKeywords: {data: keywords = [], isLoading = true},
+    referenceKeywords: {data: keywords, isLoading = true},
     mutate,
   } = useReferenceMutation();
   const file = useAtomValue(referenceImageAtom);
