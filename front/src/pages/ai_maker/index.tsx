@@ -87,6 +87,10 @@ export const AiMakerPage = () => {
         .otherwise(() => (
           <></>
         ))}
+      <div className={css({visibility: 'none', position: 'fixed'})}>
+        <span className={css({color: 'skyblue'})}> </span>
+        <span className={css({color: 'orange'})}> </span>
+      </div>
     </div>
   );
 };
