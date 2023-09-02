@@ -33,3 +33,10 @@ export const isPercentageOverlap = (rectA: Rect, rectB: Rect, n: number) => {
 
   return overlap / areaA >= n / 100;
 };
+
+export const getOverlapPercentage = (rectA: Rect, rectB: Rect) => {
+  const areaA = (rectA.right - rectA.left) * (rectA.bottom - rectA.top);
+  const overlap = overlapArea(rectA, rectB);
+
+  return overlap / areaA;
+};

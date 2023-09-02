@@ -4,10 +4,11 @@ import throttle from 'lodash/throttle';
 import {Keyword} from '../../types/Keyword.ts';
 import {SystemStyleObject} from '../../../styled-system/types';
 import {css} from '../../../styled-system/css';
-import {Rect} from '../../utils/random_util.ts';
+import {Rect} from '../../utils/rect_util.ts';
 
 type Props = {
   keyword: Keyword;
+  selected: boolean;
   dragConstraint: RefObject<HTMLDivElement>;
   onAnimationUpdate?: (rect?: DOMRect) => void;
   fontColor?: KeywordFontColor;
@@ -17,12 +18,13 @@ type Props = {
 export type KeywordFontColor = 'pink' | 'skyblue' | 'orange' | 'deeppink' | 'random';
 
 export const KeywordCard = memo(
-  ({keyword, dragConstraint, onAnimationUpdate, fontColor = 'pink', initialPosition}: Props) => {
+  ({keyword, selected, dragConstraint, onAnimationUpdate, fontColor = 'pink', initialPosition}: Props) => {
     const ref = useRef<HTMLDivElement>(null);
+    const initialSelected = useRef(selected);
 
     const throttledAnimationUpdate = useMemo(
-      () => throttle(() => onAnimationUpdate?.(ref.current?.getBoundingClientRect()), 200),
-      [onAnimationUpdate],
+      () => (!selected ? throttle(() => onAnimationUpdate?.(ref.current?.getBoundingClientRect()), 50) : undefined),
+      [onAnimationUpdate, selected],
     );
 
     return (
@@ -35,11 +37,17 @@ export const KeywordCard = memo(
         dragConstraints={dragConstraint}
         onUpdate={throttledAnimationUpdate}
         data-shape={'rectangle'}
-        style={{backgroundColor: keyword.name}}
+        style={{backgroundColor: keyword.name, display: initialSelected.current ? 'none' : 'flex'}}
         initial={{
           rotate: Math.floor(Math.random() * 90) - 45,
           top: initialPosition?.top,
           left: initialPosition?.left,
+        }}
+        animate={selected && {scale: 0}}
+        whileTap={{scale: 1.1}}
+        transition={{
+          duration: 0.4,
+          ease: [0, 0.71, 0.2, 1.01],
         }}
       >
         <span className={nameStyle}>{keyword.type !== 'color' && keyword.name}</span>

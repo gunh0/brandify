@@ -124,6 +124,7 @@ const buttonStyle: SystemStyleObject = {
   alignItems: 'center',
   cursor: 'pointer',
   zIndex: 11,
+  userSelect: 'none',
 };
 
 const prevButtonStyle = css(buttonStyle, {
