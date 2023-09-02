@@ -59,7 +59,9 @@ export const ResultPage = () => {
             <button className={buttonStyle} onClick={onClickDownload} disabled={!selectedImage}>
               SAVE
             </button>
-            <button className={buttonStyle}>SELL IT</button>
+            <button className={buttonStyle} disabled={true}>
+              SELL IT
+            </button>
           </div>
         </>
       )}
@@ -107,4 +109,12 @@ const buttonStyle = css({
   color: 'white',
   cursor: 'pointer',
   userSelect: 'none',
+  ['&:disabled']: {
+    cursor: 'default',
+    borderColor: 'gray',
+    color: 'gray',
+    '& svg': {
+      fill: 'gray',
+    },
+  },
 });
