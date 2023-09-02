@@ -23,4 +23,4 @@ const titleStyle = css({
   userSelect: 'none',
 });
 
-const subtitleStyle = css({fontSize: '20px', userSelect: 'none'});
+const subtitleStyle = css({fontSize: '20px', userSelect: 'none', fontFamily: 'Pretendard'});

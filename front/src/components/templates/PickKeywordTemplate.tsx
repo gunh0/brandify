@@ -134,4 +134,4 @@ const dragTextStyle = css({
   mt: '60px',
 });
 
-const dragDescriptionStyle = css({fontSize: '20px', fontWeight: '400'});
+const dragDescriptionStyle = css({fontSize: '20px', fontWeight: '400', fontFamily: 'Pretendard'});

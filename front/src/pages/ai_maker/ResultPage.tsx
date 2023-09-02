@@ -77,6 +77,7 @@ const imageContainerStyle = css({display: 'flex', gap: '10px', justifyContent: '
 const imageWrapperStyle = css({
   position: 'relative',
   cursor: 'pointer',
+  userSelect: 'none',
 });
 
 const iconWrapperStyle = css({
@@ -103,4 +104,5 @@ const buttonStyle = css({
   fontSize: '36px',
   color: 'white',
   cursor: 'pointer',
+  userSelect: 'none',
 });

@@ -72,6 +72,7 @@ const imageContainerStyle = css({
 });
 
 const uploadButtonStyle = {
+  userSelect: 'none',
   width: '1162px',
   height: '112px',
   cursor: 'pointer',

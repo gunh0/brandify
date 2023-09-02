@@ -67,6 +67,7 @@ const nameStyle = css({
 const korStyle = css({
   color: 'white',
   fontSize: '16px',
+  fontFamily: 'Pretendard',
 });
 
 const containerStyle: SystemStyleObject = {
