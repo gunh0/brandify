@@ -6,3 +6,7 @@ venv
 __pycache__
 
 mongo-data
+
+front/node_modules
+front/dist
+front/styled-system
