@@ -28,7 +28,7 @@ export const ResultPage = () => {
   };
 
   return isLoading || !report ? (
-    <LoadingView />
+    <LoadingView text={'당신만의 브랜드 이미지를 생성하고 있어요'} />
   ) : (
     <div className={containerStyle}>
       <TitleSection

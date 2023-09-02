@@ -23,7 +23,7 @@ export const ReferenceKeywordPickPage = () => {
   };
 
   return isLoading ? (
-    <LoadingView />
+    <LoadingView text={'업로드한 이미지와 연관된 키워드를 가져오고 있어요'} />
   ) : (
     <PickKeywordTemplate
       keywords={keywords}

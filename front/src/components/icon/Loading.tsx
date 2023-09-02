@@ -15,7 +15,6 @@ const container = css({
   display: 'grid',
   justifyContent: 'center',
   alignItems: 'center',
-  height: '350px',
 });
 
 const spinner = css({

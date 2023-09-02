@@ -24,7 +24,7 @@ export const RelatedKeywordPickPage = () => {
   };
 
   return isLoading ? (
-    <LoadingView />
+    <LoadingView text={'연관된 키워드를 가져오고 있어요'} />
   ) : (
     <PickKeywordTemplate
       keywords={keywords}
